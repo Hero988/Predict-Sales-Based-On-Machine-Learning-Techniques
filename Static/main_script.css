@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    color: #444;
+}
+.db-selected {
+    background-color: #4CAF50; /* Green background for selected database */
+    color: white; /* White text color for better contrast */
+}
+label {
+    display: block;
+    margin: 15px 0 5px;
+}
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+button {
+    background-color: #5C6BC0;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+button:hover {
+    background-color: #3F51B5;
+}
+#uploadForm, #userForm, #evaluateOptions {
+    margin-bottom: 20px;
+}
+#trainingStatusDisplay {
+    background-color: #eef1f5;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+#trainingStatus, #trainingTimer, #bestAccuracy {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #333;
+}
+
+.countdown {
+    background-color: #444;
+    color: #fff;
+    padding: 10px;
+    margin-top: 20px;
+    text-align: center;
+    border-radius: 8px;
+}
+
+.db-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.db-container:hover, .db-container.db-selected {
+    background-color: #e0e0e0; /* Lighter grey on hover/select */
+}
+
+.db-name {
+    font-size: 16px;
+    color: #5A89E6; /* Softer shade of blue */
+}
+
+.delete-db-icon {
+    margin-left: 10px;
+    color: #ff4545; /* Red color for delete icon */
+    cursor: pointer;
+}
+
+/* Style adjustments for better visual feedback on selection */
+.db-selected .db-name {
+    font-weight: bold;
+    color: #007bff; /* Bootstrap primary blue for selected DB */
+}
+
+/* Revised styles for .db-selected */
+.db-container.db-selected {
+    background-color: #4CAF50; /* Green background for selected database */
+    color: white; /* White text color for better contrast */
+}
+
+/* Additional style to ensure the delete icon matches the container's text color */
+.db-container.db-selected .delete-db-icon {
+    color: white;
+}

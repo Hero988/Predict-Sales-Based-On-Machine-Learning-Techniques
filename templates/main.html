@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/static/logo.png" type="image/png">
+    <meta charset="UTF-8">
+    <title>NexaPredict</title>
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800 text-white">
+    <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 pt-4 flex justify-between items-center"> <!-- Updated for alignment -->
+            <button id="logoutButton" class="text-sm bg-red-500 hover:bg-red-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="window.location.href='/login-page'">
+                Logout
+            </button>
+        </div>
+        <!-- Countdown Timer Display -->
+        <div id="trialCountdown" class="countdown my-4">
+            <span id="countdownTimer">Loading...</span>
+            <br>
+            <button id="checkout-button">Pay for the subscription here</button>
+            <!-- Subscription Cancellation Button -->
+            <button id="cancelSubscriptionBtn" class="btn btn-danger">Cancel Subscription</button>
+            <button id="reactivateSubscriptionBtn" class="btn btn-danger">Reactivate Subscription</button>
+        </div>
+        <form id="scriptForm">
+            <div class="mb-4">
+                <label for="action" class="block text-sm font-medium text-gray-400">Select Action:</label>
+                <select id="action" name="action" onchange="handleActionChange()" class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md bg-gray-700 text-white">
+                    <option value="train">Train MP (MultilayerPerceptron)</option>
+                    <option value="evaluate">Evaluate MP</option>
+                    <option value="predict-next">Predict with MP</option>
+                    <!-- Option placeholders -->
+                    <option value="prophet">Train Prophet</option>
+                    <option value="prophet-evaluate">Evaluate Prophet</option>
+                    <option value="prophet-predict">Predict With Prophet</option>
+                    <option value="xgboost">Train XGBoost</option>
+                    <option value="xgboost-evaluate">Evaluate XGBoost</option>
+                    <option value="xgboost-prediction">Predict With XGboost</option>
+                    <option value="ensemble">Ensemble Method (Combine all Models) for training and evaluation</option>
+                    <option value="ensemble_prediction">Ensemble Method (Combine all Models) for prediction</option>
+                </select>
+            </div>
+
+            <div id="trainingStatusDisplay" style="display: none;" class="mb-4">
+                <h2 id="action_message" style="display: none;" class="text-lg leading-6 font-medium text-gray-400">Make sure the uploaded dataset has 2 columns...</h2>
+                <div id="status" class="text-sm text-gray-400">Waiting to predict next movement in sales...</div>
+            </div>
+
+            <div id="userForm" class="mb-4">
+                <div id="db_name_container" style="display: none;" class="mb-4"> <!-- Initially hidden -->
+                    <label for="db_name" class="block text-sm font-medium text-gray-400">Database Name:</label>
+                    <input type="text" id="db_name" name="db_name" required class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-700 text-white">
+                </div>
+                <span id="dbNameSuffix" class="font-bold text-gray-400"></span> <!-- Container for the suffix -->
+            </div>
+
+            <div id="databaseListContainer" class="mb-4">
+                <!-- Databases and their corresponding delete icons will be dynamically inserted here -->
+            </div>
+
+            <div id="uploadForm" style="display: none;" class="mb-4">
+                <label for="file" class="block text-sm font-medium text-gray-400">Upload CSV File:</label>
+                <input type="file" id="file" name="file" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-700 text-white">
+            </div>
+
+            <div id="numDaysContainer" style="display: none;" class="mb-4">
+                <label for="num_days" class="block text-sm font-medium text-gray-400">Number of Days for Prediction:</label>
+                <input type="number" id="num_days" name="num_days" min="1" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md bg-gray-700 text-white">
+            </div>
+
+            <div class="flex gap-4">
+                <button type="button" id="downloadCsvBtn" onclick="downloadCSV()" style="display: none;" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Download Predictions CSV</button>
+                <button type="button" id="downloadPlotBtn" style="display: none;" onclick="downloadPlot()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Download Plot</button>
+                <button type="button" id="downloadFeatureImportanceBtn" style="display: none;" onclick="downloadFeatureImportance()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 focus:ring-offset-gray-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Download Feature Importance</button>
+
+                <button type="button" onclick="setUserAndDB()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">Go</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/main_script.js"></script>
+</body>
+</html>
